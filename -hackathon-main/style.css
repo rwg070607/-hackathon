@@ -1,0 +1,16 @@
+#title{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+canvas{
+    margin: 40px;
+}
+div{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+#color{
+    margin-top: 30px;
+}
