@@ -59,7 +59,7 @@
         
         window.requestAnimationFrame(loop);
     }
-
+let intaval;
     // run the webcam image through the image model
     async function predict() {
         // predict can take in an image, video or canvas html element
@@ -68,15 +68,26 @@
         for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
                 `${prediction[i].className} : ${Math.floor(prediction[i].probability.toFixed(2)*100)}%` ;
+                
             labelContainer.childNodes[i].innerHTML = classPrediction;
-            
-            if (prediction[i].probability.toFixed(2)*100>=50) {
-                document.querySelector("body").style.backgroundColor = "red";
-                signal.innerHTML = '빨간불'
+
+            if (prediction[0].probability.toFixed(2)*100>=50) {
+                if(!intaval){
+                    intaval = setTimeout(() => {
+                        signal.innerHTML = '초록불'
+                        document.querySelector("body").style.backgroundColor = "green";
+                        console.log(intaval)
+                    }, 3000);
+                }
             }
             else {
-                document.querySelector("body").style.backgroundColor = "green";
-                signal.innerHTML = '초록불'
+                if (intaval) {
+                    clearTimeout(intaval);
+                    intaval = null;
+                    document.querySelector("body").style.backgroundColor = "red";
+                    signal.innerHTML = '빨간불'
+                }
+                console.log(intaval);
             }
     }
     }
